@@ -4,6 +4,7 @@ import * as express from 'express';
 
 import { AppModule } from './app.module';
 import { PinoLoggerService } from '../modules';
+import morgan from 'morgan';
 
 const { PORT } = process.env || 3000;
 
@@ -15,8 +16,9 @@ export class AppService {
     this.logger.log('[NETWORK APP]\tSTARTING');
     const app = await NestFactory.create(AppModule, { cors: true, logger: false });
 
-    app.setGlobalPrefix('v1');
+    app.use(morgan('combined'));
     app.use(express.json());
+    app.setGlobalPrefix('v1');
     app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
 
     await app.listen(PORT!);
