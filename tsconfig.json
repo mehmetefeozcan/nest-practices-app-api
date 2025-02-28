@@ -8,7 +8,6 @@
     "esModuleInterop": true,
     "baseUrl": "./src",
     "paths": {
-      "@libs": ["libs/index"],  // libs dosyasına giden yol
     }
   },
   "ts-node": {

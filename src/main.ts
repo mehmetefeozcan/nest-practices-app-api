@@ -1,16 +1,18 @@
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import * as express from 'express';
+import { PinoLoggerService } from 'modules';
+import { AppService } from './app';
 
-import { AppModule } from './app.module';
+const logger = new PinoLoggerService();
 
 async function main() {
-  const app = await NestFactory.create(AppModule, { cors: true });
-
-  app.use(express.json());
-  app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
-
-  await app.listen(4101);
+  const server = new AppService(logger);
+  await server.start();
 }
 
-main();
+main()
+  .then(() => {
+    logger.log('[NETWORK APP]\tSTARTED');
+  })
+  .catch((err) => {
+    logger.error(`[NETWORK APP]\tNOT STARTED: ${err}`);
+    process.exit(1);
+  });
