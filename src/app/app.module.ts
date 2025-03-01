@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule, LoggerModule, ScryptModule } from 'modules';
-import { GeneralModule, AuthModule } from 'features';
+import { DatabaseModule, LoggerModule, ScryptModule, JWTModule } from 'common';
+import { GeneralModule, AuthModule } from 'modules';
 
 @Module({
-  imports: [DatabaseModule, LoggerModule, GeneralModule, AuthModule, ScryptModule],
+  imports: [DatabaseModule, LoggerModule, GeneralModule, AuthModule, ScryptModule, JWTModule],
 })
 export class AppModule {}

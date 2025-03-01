@@ -1,4 +1,4 @@
-import { PinoLoggerService } from 'modules';
+import { PinoLoggerService } from 'common';
 import { AppService } from './app';
 
 const logger = new PinoLoggerService();

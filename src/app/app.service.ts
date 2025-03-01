@@ -1,10 +1,11 @@
 import { Injectable, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import cookieParser from 'cookie-parser';
 import * as express from 'express';
+import morgan from 'morgan';
 
 import { AppModule } from './app.module';
-import { PinoLoggerService } from '../modules';
-import morgan from 'morgan';
+import { PinoLoggerService } from '../common';
 
 const { PORT } = process.env || 3000;
 
@@ -17,6 +18,7 @@ export class AppService {
     const app = await NestFactory.create(AppModule, { cors: true, logger: false });
 
     app.use(morgan('combined'));
+    app.use(cookieParser());
     app.use(express.json());
     app.setGlobalPrefix('v1');
     app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
